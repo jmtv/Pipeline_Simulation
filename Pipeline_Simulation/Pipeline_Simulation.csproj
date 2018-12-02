@@ -49,6 +49,7 @@
     <Compile Include="Contexto.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Instruccion.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="MemoriaDatos.cs" />
     <Compile Include="MemoriaInstrucciones.cs" />
     <Compile Include="Program.cs" />
