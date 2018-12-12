@@ -14,5 +14,11 @@ namespace Pipeline_Simulation
         {
             bloqueInstruccioneses = new BloqueInstrucciones[40];
         }
+
+        public BloqueInstrucciones BuscarInstruccion(int pc)
+        {
+            int numeroBloque = pc / 16;
+            return bloqueInstruccioneses[numeroBloque];
+        }
     }
 }

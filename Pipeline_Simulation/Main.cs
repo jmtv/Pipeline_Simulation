@@ -9,6 +9,14 @@ namespace Pipeline_Simulation
 {
     public class Main
     {
+        private static int totalQuantum;
+        private int leftQuantum;
+
+        private int pc;
+
+        public CacheDatos cacheDatos = new CacheDatos();
+        public CacheInstrucciones cacheInstrucciones = new CacheInstrucciones();
+
         public MemoriaDatos memoriaDatos = new MemoriaDatos();
         public MemoriaInstrucciones memoriaInstrucciones = new MemoriaInstrucciones();
 
@@ -22,12 +30,18 @@ namespace Pipeline_Simulation
         public void LeeHilillos()
         {
             int posicionMemoria = 0;
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 1; i++)
             {   
                 string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Roy\Desktop\hilillos\" + i + ".txt");
                 BloqueInstrucciones bloqueInstrucciones = new BloqueInstrucciones();
                 for (int j = 0; j < lines.Length; j++)
                 {
+                    if (j % 4 == 0 && j != 0)
+                    {
+                        memoriaInstrucciones.bloqueInstruccioneses[posicionMemoria] = bloqueInstrucciones;
+                        posicionMemoria++;
+                    }
+
                     var line = lines[j];
                     string[] lineaSplit = line.Split(' ');
                     int lineaInt;
@@ -48,17 +62,29 @@ namespace Pipeline_Simulation
 
                     bloqueInstrucciones.instrucciones[j % 4] = instruccion;
 
-                    if (j % 4 == 0 && j != 0)
-                    {
-                        memoriaInstrucciones.bloqueInstruccioneses[posicionMemoria] = bloqueInstrucciones;
-                        posicionMemoria++;
-                    }
                 }
             }
         }
 
         public void IF()
         {
+            BloqueInstrucciones bloqueInstrucciones = cacheInstrucciones.BuscarInstruccion(pc);
+
+            Instruccion irTemporal;
+
+            /*Si hay fallo de cache*/
+            if (bloqueInstrucciones == null)
+            {
+                bloqueInstrucciones = memoriaInstrucciones.BuscarInstruccion(pc);
+                cacheInstrucciones.IngresarBloqueInstrucciones(bloqueInstrucciones, pc / 16);
+                
+            }
+
+            /*No hay fallo de cache*/
+            else
+            {
+                pc += 4;
+            }
             //todo
             //cuando quiero bloquear el area compartida
             //mut_if_id.WaitOne();
@@ -93,8 +119,11 @@ namespace Pipeline_Simulation
 
         public Main()
         {
+            Console.WriteLine("Ingrese el quantum que quiere que tenga su programa: ");
+            totalQuantum = Int32.Parse(Console.ReadLine());
 
             LeeHilillos();
+            IF();
 
             //Estructuras intermedias
             int[] if_id = new int[5];

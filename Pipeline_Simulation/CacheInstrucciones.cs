@@ -17,7 +17,7 @@ namespace Pipeline_Simulation
             etiquetas = new int[4];
         }
 
-        public bool IngresarBloqueDatos(BloqueInstrucciones bloqueInstrucciones, int etiqueta)
+        public bool IngresarBloqueInstrucciones(BloqueInstrucciones bloqueInstrucciones, int etiqueta)
         {
 
             this.bloqueInstrucciones[etiqueta % 4] = bloqueInstrucciones;
@@ -25,6 +25,20 @@ namespace Pipeline_Simulation
 
             return true;
 
+        }
+
+        public BloqueInstrucciones BuscarInstruccion(int pc)
+        {
+            int numeroBloque = pc / 16;
+            for (int i = 0; i < 4; i++)
+            {
+                if (etiquetas[i] == numeroBloque)
+                {
+                    return bloqueInstrucciones[i];
+                }
+            }
+
+            return null;
         }
     }
 }
