@@ -100,6 +100,80 @@ namespace Pipeline_Simulation
         public void EX()
         {
             //todo
+            int dummyIntermedioIR= 71;
+ 
+            int dummyIntermedioA=9;
+            int dummyIntermedioB=5;
+            int dummyIntermedioImmediato = 5;
+            int booleanoRL=0;//0-false
+            int dummyResultadoALU=0;
+            int dummyRL=0;
+
+            int booleanBranch = 0;
+
+            //switch para tipo de operacion
+            switch (dummyIntermedioIR)
+            {
+                //aritmética
+                case 71://add
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioB;
+                    break;
+                case 19://addi
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioImmediato; 
+                    break;
+                case 83://sub
+                    dummyResultadoALU = dummyIntermedioA - dummyIntermedioB;
+                    break;
+                case 72://mul
+                    dummyResultadoALU = dummyIntermedioA * dummyIntermedioB;
+                    break;
+                case 56://div
+                    dummyResultadoALU = dummyIntermedioA / dummyIntermedioB;
+                    break;
+                //memoria
+                case 5://lw
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioImmediato;
+                    break;
+
+                case 37://sw
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioImmediato;
+                    break;
+
+                case 51://lr
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioImmediato;
+                    break;
+
+                case 52://sc
+                    dummyResultadoALU = dummyIntermedioA + dummyIntermedioImmediato;
+                    break;
+                //branch-jump
+                case 99://beq
+                  /*  if (dummyIntermedioA == dummyIntermedioB) {
+                        booleanBranch = 1;
+                    }*/
+                    break;
+                case 100://bne
+                  /*  if (dummyIntermedioA != dummyIntermedioB)
+                    {
+                        booleanBranch = 1;
+                    }*/
+                    break;
+                case 111://jal
+                  /*  if (dummyIntermedioA == dummyIntermedioB)
+                    {
+                        booleanBranch = 1;
+                    }*/
+                    break;
+                case 53://jalr
+                  /*  if (dummyIntermedioA == dummyIntermedioB)
+                    {
+                        booleanBranch = 1;
+                    }*/
+                    break;
+
+                default://999-FIN
+                    
+                    break;
         }
 
         public void MEM()
